@@ -1,79 +1,112 @@
+// Runs program (believe it or not) handls output and controls the program's flow overall
+
 using System;
-using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
+
 class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("Welcome to Chase's Schedule Planner!");
+        Console.WriteLine();
+
+        Console.Write("Please Enter your name: ");
+        string name = Console.ReadLine();
+
+        Console.Write("Enter your time to wake up (example: 8:00 AM): ");
+        string wakeTime = Console.ReadLine();
+
+        Console.Write("Enter time to sleep : ");
+        string sleepTime = Console.ReadLine();
+
+        User user = new User(name, wakeTime, sleepTime);
+        Scheduler scheduler = new Scheduler(user);
+
+        scheduler.GenerateSchedule();
+
         List<Assignment> assignments = new List<Assignment>();
         List<FixedEvent> fixedEvents = new List<FixedEvent>();
-        string choice = "0";
-        string subChoice = "0";
-        Console.WriteLine("Welcome to Chase's Schedule Planner!");
 
-        while (choice != "3")
+        string choice = "0";
+
+        while (choice != "4")
         {
+            Console.WriteLine();
             Console.WriteLine("What would you like to do?");
-            Console.WriteLine("1 - Add Info");
-            Console.WriteLine("2 - See Schedule");
-            Console.WriteLine("3 - Exit");
+            Console.WriteLine("1: Add Assignment");
+            Console.WriteLine("2: Add Event");
+            Console.WriteLine("3: See Your Full Schedule");
+            Console.WriteLine("4: Exit");
 
             choice = Console.ReadLine();
+
             if (choice == "1")
             {
-                Console.WriteLine("1 - Add Assignment");
-                Console.WriteLine("2 - Add Event");
-                subChoice = Console.ReadLine();
-                if (subChoice == "1")
-                {
-                    Console.WriteLine("Enter Assignment name");
-                    string assignmentName = Console.ReadLine();
-                    Console.WriteLine("Enter due date");
-                    string dueDate = Console.ReadLine();
-                    Assignment a = new Assignment(assignmentName, dueDate);
-                    a.Display();
-                    assignments.Add(a);
-                }
-                else if (subChoice == "2")
-                {
-                    Console.WriteLine("Enter Event name");
-                    string eventName = Console.ReadLine();
+                Console.Write("Enter assignment title: ");
+                string title = Console.ReadLine();
 
-                    Console.WriteLine("Enter event date");
-                    string date = Console.ReadLine();
+                Console.Write("Enter day: ");
+                string day = Console.ReadLine();
 
-                    Console.WriteLine("Enter start time");
-                    string startTime = Console.ReadLine();
+                Console.Write("Enter duration in hours: ");
+                double durationHours = double.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Enter end time");
-                    string endTime = Console.ReadLine();
+                Console.Write("Enter due date: ");
+                string dueDate = Console.ReadLine();
 
-                    FixedEvent e = new FixedEvent(eventName, date, startTime, endTime);
-                    e.Display();
-                    fixedEvents.Add(e);
-                }
+                Console.Write("Enter priority: ");
+                int priority = int.Parse(Console.ReadLine());
 
-           
+                Assignment assignment = new Assignment(title, day, durationHours, dueDate, priority);
+                assignments.Add(assignment);
+
+                scheduler.ScheduleAssignment(assignment);
+
+                Console.WriteLine("Assignment added.");
             }
             else if (choice == "2")
             {
-                Console.WriteLine("Schedule:");
-                Console.WriteLine("");
-                Console.WriteLine("Assignments:");
+                Console.Write("Enter event title: ");
+                string title = Console.ReadLine();
+
+                Console.Write("Enter day: ");
+                string day = Console.ReadLine();
+
+                Console.Write("Enter start time: ");
+                string startTime = Console.ReadLine();
+
+                Console.Write("Enter end time: ");
+                string endTime = Console.ReadLine();
+
+                double durationHours = 1;
+
+                FixedEvent fixedEvent = new FixedEvent(title, day, durationHours, startTime, endTime);
+                fixedEvents.Add(fixedEvent);
+
+                scheduler.ScheduleAssignment(fixedEvent);
+
+                Console.WriteLine("Event added.");
+            }
+            else if (choice == "3")
+            {
+                Console.WriteLine();
+                Console.WriteLine("|-|-| WEEK SCHEDULE |-|-|");
+                scheduler.GetWeekSchedule().DisplayWeekSchedule();
+
+                Console.WriteLine();
+                Console.WriteLine("|-|-| ASSIGNMENTS |-|-|");
                 foreach (Assignment assignment in assignments)
                 {
-                    assignment.Display();
+                    Console.WriteLine(assignment.GetDetails());
                 }
-                Console.WriteLine("");
-                Console.WriteLine("Events:");
-                foreach(FixedEvent fixedEvent in fixedEvents)
+
+                Console.WriteLine();
+                Console.WriteLine("|-|-| EVENTS |-|-|");
+                foreach (FixedEvent fixedEvent in fixedEvents)
                 {
-                    fixedEvent.Display();
+                    Console.WriteLine(fixedEvent.GetDetails());
                 }
             }
         }
-    }  
+    }
 }
-        
-

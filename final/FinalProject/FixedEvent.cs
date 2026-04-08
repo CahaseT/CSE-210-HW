@@ -1,21 +1,31 @@
+// Represents those events that cannot be moved around.
+
 using System;
 
-public class FixedEvent
+public class FixedEvent : SchedulableItem
 {
-    private string name;
-    private string date;
     private string startTime;
     private string endTime;
-    public FixedEvent(string name, string date, string startTime, string endTime)
+
+    public FixedEvent(string title, string day, double durationHours, string startTime, string endTime)
+        : base(title, day, durationHours)
     {
-        this.name = name;
-        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-
     }
-    public void Display()
+
+    public string GetStartTime()
     {
-        Console.WriteLine(name + " - " + date + " " + startTime + " to " + endTime);
+        return startTime;
+    }
+
+    public string GetEndTime()
+    {
+        return endTime;
+    }
+
+    public override string GetDetails()
+    {
+        return title + " - " + day + " - " + startTime + " to " + endTime;
     }
 }
