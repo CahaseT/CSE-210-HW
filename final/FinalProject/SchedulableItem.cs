@@ -15,11 +15,6 @@ public abstract class SchedulableItem
         this.durationHours = durationHours;
     }
 
-    public string GetTitle()
-    {
-        return title;
-    }
-
     public string GetDay()
     {
         return day;

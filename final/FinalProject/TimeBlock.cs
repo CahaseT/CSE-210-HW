@@ -27,11 +27,6 @@ public class TimeBlock
         return scheduledItem == null;
     }
 
-    public string GetDay()
-    {
-        return day;
-    }
-
     public string GetStartTime()
     {
         return startTime;
@@ -40,11 +35,6 @@ public class TimeBlock
     public string GetEndTime()
     {
         return endTime;
-    }
-
-    public SchedulableItem GetScheduledItem()
-    {
-        return scheduledItem;
     }
 
     public void Display()

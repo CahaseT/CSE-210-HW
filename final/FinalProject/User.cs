@@ -15,10 +15,6 @@ public class User
         this.sleepTime = sleepTime;
     }
 
-    public string GetName()
-    {
-        return name;
-    }
 
     public string GetWakeTime()
     {

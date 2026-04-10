@@ -90,18 +90,18 @@ class Program
             else if (choice == "3")
             {
                 Console.WriteLine();
-                Console.WriteLine("|-|-| WEEK SCHEDULE |-|-|");
+                Console.WriteLine("|-|-| YOUR WEEK |-|-|");
                 scheduler.GetWeekSchedule().DisplayWeekSchedule();
 
                 Console.WriteLine();
-                Console.WriteLine("|-|-| ASSIGNMENTS |-|-|");
+                Console.WriteLine("|-|-| YOUR ASSIGNMENTS |-|-|");
                 foreach (Assignment assignment in assignments)
                 {
                     Console.WriteLine(assignment.GetDetails());
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("|-|-| EVENTS |-|-|");
+                Console.WriteLine("|-|-| YOUR EVENTS |-|-|");
                 foreach (FixedEvent fixedEvent in fixedEvents)
                 {
                     Console.WriteLine(fixedEvent.GetDetails());

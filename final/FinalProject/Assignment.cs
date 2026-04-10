@@ -14,16 +14,6 @@ public class Assignment : SchedulableItem
         this.priority = priority;
     }
 
-    public string GetDueDate()
-    {
-        return dueDate;
-    }
-
-    public int GetPriority()
-    {
-        return priority;
-    }
-
     public override string GetDetails()
     {
         return title + " - " + day + " - " + durationHours + " hours - Due: " + dueDate + " - Priority: " + priority;
